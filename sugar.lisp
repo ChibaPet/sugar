@@ -1,0 +1,15 @@
+(require :sb-posix)
+(ql:quickload "parse-float")
+(use-package :parse-float)
+(defun main ()
+  (if (null (cdr sb-ext:*posix-argv*))
+    (quit))
+  (let ((sugar (parse-float (car (cdr sb-ext:*posix-argv*)))))
+    (cond
+      ((null sugar)
+       (format t "Let's have a number now, shall we?~%"))
+      ((< sugar 40)
+       (format t "~0,1F mmol/l = ~0,0D mg/dl~%" sugar (round (* sugar 18))))
+      (t
+       (format t "~0,0D mg/dl = ~0,1F mmol/l~%" (round sugar) (/ sugar 18))))))
+(sb-ext:save-lisp-and-die "sugar" :toplevel #'main :executable t)
