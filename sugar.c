@@ -28,4 +28,5 @@ void main(int argc, char *argv[])
     } else {
         printf("%0.0f mg/dl = %0.1f mmol/l\n", sugar, sugar / 18);
     }
+    exit(0);
 }
